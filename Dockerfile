@@ -13,7 +13,6 @@ RUN nginx -t
 
 # uwsgi setup
 RUN mkdir /tmp/uwsgi/
-#RUN apt install python3-dev build-base pcre-dev
 RUN pip install uwsgi
 RUN pip install -r requirements.txt
 
@@ -21,6 +20,9 @@ RUN pip install -r requirements.txt
 RUN apt install nano
 RUN apt install lsof && apt install net-tools
 RUN ls -la /run/
+
+# env var
+
 
 EXPOSE 8081
 RUN ["chmod", "+x", "/code/entrypoint.sh"]
