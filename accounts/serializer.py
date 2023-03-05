@@ -9,7 +9,7 @@ class UserPhoneSerializer(serializers.ModelSerializer):
         exclude = ('user',)
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     phones = UserPhoneSerializer(read_only=True, many=True, source='usersphones_set.all')
     class Meta:
         model = CustomUser
