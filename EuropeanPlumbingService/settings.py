@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+from distutils.util import strtobool
 from pathlib import Path
 from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'EuropeanPlumbingService.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-PROD = os.getenv("PROD") or False
+PROD = strtobool(os.getenv("PROD", 'False')) or False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
