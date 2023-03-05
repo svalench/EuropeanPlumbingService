@@ -160,4 +160,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://192.168.56.1:3000",
 ]
-CSRF_TRUSTED_ORIGINS =[HOSTNAME]
+CSRF_TRUSTED_ORIGINS =[HOSTNAME, 'https://api.valenchits.com']
