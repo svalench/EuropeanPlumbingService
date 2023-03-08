@@ -1,12 +1,23 @@
 from django.utils.timezone import now
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.authtoken.models import Token
-from accounts.models import CustomUser
-from accounts.serializer import UserSerializer
+from accounts.models import CustomUser, Clients, UsersRoles
+from accounts.serializer import UserSerializer, ClientSerializer, UserRoleSerializer, UserRoleViewsetSerializer, \
+    RegisterSerializer
 from rest_framework.response import Response
+
+
+class ClientsViewSet(viewsets.ModelViewSet):
+    queryset = Clients.objects.all()
+    serializer_class = ClientSerializer
+
+
+class UsersRolesViewSet(viewsets.ModelViewSet):
+    queryset = UsersRoles.objects.all()
+    serializer_class = UserRoleViewsetSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -35,6 +46,7 @@ class UserAuthToken(ObtainAuthToken):
             'email': user.email
         })
 
+
 class UserAuthTokenUpdate(ObtainAuthToken):
     """метод для обновления токена на сайте"""
 
@@ -50,6 +62,26 @@ class UserAuthTokenUpdate(ObtainAuthToken):
             'last_name': request.user.last_name,
             'email': request.user.email
         })
+
+
+class RegisterView(generics.CreateAPIView):
+    """контроллер регистрации нового пользователя"""
+    queryset = CustomUser.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        data = CustomUser.objects.get(username=serializer.data['username'])
+        data.is_active = True
+        data.save()
+        # email = EmailSending()
+        # data1 = {"newpassword": request.data.get('password'), "name": data.first_name, "last_name": data.last_name}
+        # email.send_mail(email=data.email, subject='Регистрация на Arhiterm', template='email_template/email_change_pass.html',data=data1)
+        return Response({"id": data.id, "username": data.username}, status=status.HTTP_201_CREATED, headers=headers)
 
 # class ForgotPasswordUser(viewsets.ViewSet):
 #     """метод если пользователь забыл пароль то отправляем письмо с новым"""

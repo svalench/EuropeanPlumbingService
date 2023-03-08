@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY") or 'django-insecure-(tpekwoj+s=on7tbj87(=ju
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") or True
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS") or ['0.0.0.0']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS") or ['0.0.0.0', '127.0.0.1']
 HOSTNAME = os.environ.get('HOSTNAME') or 'valenchits.com'
 
 # Application definition
@@ -82,7 +82,11 @@ WSGI_APPLICATION = 'EuropeanPlumbingService.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-PROD = strtobool(os.getenv("PROD", 'False')) or False
+try:
+    PROD = strtobool(os.getenv("PROD", 'False')) or False
+except:
+    PROD = False
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -160,4 +164,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://192.168.56.1:3000",
 ]
-CSRF_TRUSTED_ORIGINS =[HOSTNAME, 'https://api.valenchits.com']
+CSRF_TRUSTED_ORIGINS =['https://api.valenchits.com']

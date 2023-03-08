@@ -18,15 +18,18 @@ from django.urls import path, include
 from rest_framework import routers
 
 
-from accounts.viewset import UserViewSet, UserAuthToken
+from accounts.viewset import UserViewSet, UserAuthToken, ClientsViewSet, UsersRolesViewSet, RegisterView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'users-role', UsersRolesViewSet)
+router.register(r'clients', ClientsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('login/oauth/', UserAuthToken.as_view(), name='signin'),
+    path('login/registration/', RegisterView.as_view(), name='registration'),
     path('user/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
