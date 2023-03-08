@@ -165,3 +165,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.56.1:3000",
 ]
 CSRF_TRUSTED_ORIGINS =['https://api.valenchits.com']
+
+DOMAIN = ''
+EMAIL_HOST_USER = ''
