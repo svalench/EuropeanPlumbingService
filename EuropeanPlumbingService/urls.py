@@ -29,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('login/oauth/', UserAuthToken.as_view(), name='signin'),
-    path('login/registration/', RegisterView.as_view(), name='registration'),
+    path('registration/', RegisterView.as_view(), name='registration'),
     path('user/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
