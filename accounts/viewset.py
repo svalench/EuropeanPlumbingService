@@ -12,7 +12,12 @@ from rest_framework.response import Response
 
 class ClientsViewSet(viewsets.ModelViewSet):
     queryset = Clients.objects.all()
+    permission_classes = [IsAuthenticated]
     serializer_class = ClientSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Clients.objects.filter(users=user)
 
 
 class UsersRolesViewSet(viewsets.ModelViewSet):

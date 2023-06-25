@@ -19,11 +19,14 @@ from rest_framework import routers
 
 
 from accounts.viewset import UserViewSet, UserAuthToken, ClientsViewSet, UsersRolesViewSet, RegisterView
+from kitstructure.viewset import AppObjetSet, ApiOfAppViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'users-role', UsersRolesViewSet)
 router.register(r'clients', ClientsViewSet)
+router.register(r'apps', AppObjetSet)
+router.register(r'apis', ApiOfAppViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
