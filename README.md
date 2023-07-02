@@ -33,3 +33,10 @@
  - 'clients/' - список клиентов в приложении
  - 'clients/{pk}/'  - (GET, POST, PUT, PATCH, DELETE)
 
+#### API for KIT APP
+
+ - 'apps/'      - список приложений пользоватлея
+ - 'apps/{pk}'  - (GET, POST, PUT, PATCH, DELETE) создание удаление изменения апп
+ - 'apis/'      - список API
+ - 'apis/{pk}'  -  (GET, POST, PUT, PATCH, DELETE)  создание удаление изменения АПИ
+
