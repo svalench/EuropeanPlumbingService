@@ -1,6 +1,6 @@
 from django.utils.timezone import now
 from rest_framework import viewsets, generics, status
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
@@ -15,7 +15,7 @@ class AppObjetSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return AppObjet.objects.filter(client__users=user).select_related('client__users')
+        return AppObjet.objects.filter(client__users_id=user.id).select_related('client__users').only('client__users_id')
 
 
 class ApiOfAppViewSet(viewsets.ModelViewSet):
