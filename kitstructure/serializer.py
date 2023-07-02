@@ -2,25 +2,32 @@ import uuid
 
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
+
+from accounts.serializer import ClientSerializer
 from accounts.utils import check_email
 from kitstructure.models import AppObjet, ApiOfApp, TagsForApi, Entities
 
 
 class AppObjetSerializer(serializers.ModelSerializer):
+    client = ClientSerializer()
+
     class Meta:
         model = AppObjet
-        fields = '__all__'
-
-
-class ApiOfAppSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ApiOfApp
         fields = '__all__'
 
 
 class TagsForApiSerializer(serializers.ModelSerializer):
     class Meta:
         model = TagsForApi
+        fields = '__all__'
+
+
+class ApiOfAppSerializer(serializers.ModelSerializer):
+    app = AppObjetSerializer()
+    tags = TagsForApiSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ApiOfApp
         fields = '__all__'
 
 

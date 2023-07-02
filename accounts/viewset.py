@@ -17,7 +17,7 @@ class ClientsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Clients.objects.filter(users=user)
+        return user.teammate.all()
 
 
 class UsersRolesViewSet(viewsets.ModelViewSet):

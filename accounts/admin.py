@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, UsersPhones
+from .models import CustomUser, UsersPhones, Clients
 
 
 class UsersPhonesAdmin(admin.StackedInline):
@@ -20,5 +20,11 @@ class CustomUserAdmin(UserAdmin):
     list_display = ["id", "email", "username",]
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+class ClientsAdmin(admin.ModelAdmin):
+    model = Clients
+    list_display = ["id", "name"]
+
+admin.site.register(Clients, ClientsAdmin)
 
 

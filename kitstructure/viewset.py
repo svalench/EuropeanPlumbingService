@@ -2,7 +2,6 @@ from django.utils.timezone import now
 from rest_framework import viewsets, generics, status
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
-from rest_framework.response import Response
 
 from kitstructure.models import AppObjet, ApiOfApp, Entities
 from kitstructure.serializer import AppObjetSerializer, ApiOfAppSerializer, EntitiesSerializer
@@ -15,7 +14,7 @@ class AppObjetSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return AppObjet.objects.filter(client__users_id=user.id).select_related('client__users').only('client__users_id')
+        return AppObjet.objects.filter(client__users=user).prefetch_related('client__users').select_related('client')
 
 
 class ApiOfAppViewSet(viewsets.ModelViewSet):
@@ -25,7 +24,7 @@ class ApiOfAppViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return ApiOfApp.objects.filter(app__client__users=user).select_related('app', 'app__client')
+        return ApiOfApp.objects.filter(app__client__users=user).select_related('app', 'app__client').prefetch_related('tags')
 
 
 class EntitiesSet(viewsets.ModelViewSet):
