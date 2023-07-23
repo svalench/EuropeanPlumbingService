@@ -170,3 +170,5 @@ CSRF_TRUSTED_ORIGINS =['https://api.valenchits.com', 'http://api.valenchits.com'
 
 DOMAIN = ''
 EMAIL_HOST_USER = ''
+
+API_KIT_SERVICE = os.getenv("API_KIT_SERVICE") or 'http://localhost:8000'

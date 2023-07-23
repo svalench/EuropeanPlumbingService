@@ -14,3 +14,5 @@ def get_me(request):
         'request': request,
     }
     return Response(UserSerializer(request.user, context=serializer_context).data)
+
+

@@ -2,6 +2,7 @@ import uuid
 
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
+from rest_framework.exceptions import ValidationError
 
 from accounts.serializer import ClientSerializer
 from accounts.utils import check_email
@@ -9,7 +10,18 @@ from kitstructure.models import AppObjet, ApiOfApp, TagsForApi, Entities
 
 
 class AppObjetSerializer(serializers.ModelSerializer):
-    client = ClientSerializer()
+    #client = ClientSerializer()
+
+    def create(self, validated_data):
+        app = AppObjet.objects.create(
+            **validated_data
+        )
+        app.save()
+        if not app.generate_data_for_crete_db():
+            app.delete()
+            raise ValidationError(detail='не доступен сервис API KIT', code=400)
+        return app
+
 
     class Meta:
         model = AppObjet
