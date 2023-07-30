@@ -28,5 +28,13 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          build-args: |
+            "PROD=True"
+            "API_KIT_SERVICE=${{ vars.API_KIT_SERVICE }}"
+            "DB_NAME=${{ secrets.DB_NAME }}"
+            "DB_USER=${{ secrets.DB_USER }}"
+            "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+            "DB_HOST=${{ vars.DB_HOST }}"
+            "DB_PORT=${{ secrets.DB_PORT }}"
           push: true
           tags: chitsalex/europlumbing:latest

@@ -22,7 +22,21 @@ RUN apt install lsof && apt install net-tools
 RUN ls -la /run/
 
 # env var
+ARG PROD
+ARG API_KIT_SERVICE
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_HOST
+ARG DB_PORT
 
+ENV PROD=${PROD}
+ENV API_KIT_SERVICE=${API_KIT_SERVICE}
+ENV DB_NAME=${DB_NAME}
+ENV DB_USER=${DB_USER}
+ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_HOST=${DB_HOST}
+ENV DB_PORT=${DB_PORT}
 
 EXPOSE 8081
 RUN ["chmod", "+x", "/code/entrypoint.sh"]
