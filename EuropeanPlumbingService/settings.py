@@ -30,7 +30,7 @@ DEBUG = os.getenv("DEBUG") or True
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS") or ['0.0.0.0', '127.0.0.1']
 HOSTNAME = os.environ.get('HOSTNAME') or 'valenchits.com'
-
+HOST = os.environ.get('HOST') or 'http://localhost'
 # Application definition
 
 INSTALLED_APPS = [
