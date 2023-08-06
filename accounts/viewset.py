@@ -48,6 +48,7 @@ class UserAuthToken(ObtainAuthToken):
             'is_admin': user.is_superuser,
             'first_name': user.first_name,
             'last_name': user.last_name,
+            'client_id': [i.id for i in user.clients_set.all()],
             'email': user.email
         })
 
