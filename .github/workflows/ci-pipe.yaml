@@ -33,7 +33,7 @@ jobs:
             "PROD=True"
             "DB_USER=${{ secrets.DB_USER }}"
             "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
-            "API_KIT_SERVICE=${{ vars.API_KIT_SERVICE }}"
+            "API_KIT_SERVICE=${{ secrets.API_KIT_SERVICE }}"
             "DB_HOST=${{ vars.DB_HOST }}"
             "HOST=${{ vars.HOST }}"
             "HOSTNAME=${{ vars.HOSTNAME }}"
