@@ -9,8 +9,29 @@ from accounts.utils import check_email
 from kitstructure.models import AppObjet, ApiOfApp, TagsForApi, Entities
 
 
+class TagsForApiAppSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TagsForApi
+        fields = ['name', 'id']
+
+
+class ApiOfAppForAppSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ApiOfApp
+        fields = ['name', 'prefix', 'id']
+
+
+class TagsForApiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TagsForApi
+        fields = '__all__'
+
+
 class AppObjetSerializer(serializers.ModelSerializer):
     #client = ClientSerializer()
+    tags = TagsForApiAppSerializer(many=True, read_only=True, source='tagsforapi_set.all')
+    apis = ApiOfAppForAppSerializer(many=True, read_only=True, source='apiofapp_set.all')
 
     def create(self, validated_data):
         app = AppObjet.objects.create(
@@ -25,12 +46,6 @@ class AppObjetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppObjet
-        fields = '__all__'
-
-
-class TagsForApiSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TagsForApi
         fields = '__all__'
 
 

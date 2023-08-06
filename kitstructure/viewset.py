@@ -14,7 +14,9 @@ class AppObjetSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return AppObjet.objects.filter(client__users=user).prefetch_related('client__users').select_related('client')
+        return AppObjet.objects.filter(client__users=user).prefetch_related('client__users',
+                                                                            'tagsforapi_set',
+                                                                            'apiofapp_set').select_related('client')
 
 
 class ApiOfAppViewSet(viewsets.ModelViewSet):
