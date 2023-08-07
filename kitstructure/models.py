@@ -19,6 +19,7 @@ class AppObjet(BaseModelNamedEntities):
             "user": "user",
             "password": "password",
         }
+        print('payload', payload)
         response = send_request_to_api_kit_service(uri=f'clientdb', data=payload, method='POST')
         return response.status_code == 200
 
