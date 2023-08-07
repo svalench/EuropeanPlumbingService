@@ -12,7 +12,7 @@ def send_request_to_api_kit_service(uri: str = None, method: str = 'GET',
     session.headers.update(kwargs['headers'])
     if method == 'POST' and data:
         #kwargs['json'] = data
-        kwargs['data'] = data
+        kwargs['json'] = data
     response = session.request(method=method, url=f'{settings.API_KIT_SERVICE}/{uri}', **kwargs)
     print(response.content)
     return response
