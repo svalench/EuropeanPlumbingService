@@ -2,13 +2,13 @@ import requests
 from django.conf import settings
 
 
-def send_request_to_api_kit_service(uri: str=None, method='GET', data: dict = None):
+def send_request_to_api_kit_service(uri: str=None, method='GET', data: dict = None, *args, **kwargs):
     session = requests.Session()
-    kwargs= {}
     header = {
         'Authorization': 'Bearer ggfgfghgggf'
     }
-    session.headers.update(header)
+    kwargs['headers'] = {**kwargs['headers'], **header} if kwargs.get('headers') else header
+    session.headers.update(kwargs['headers'])
     if method == 'POST' and data:
         kwargs['json'] = data
         kwargs['data'] = data

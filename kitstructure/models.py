@@ -20,7 +20,8 @@ class AppObjet(BaseModelNamedEntities):
             "password": "password",
         }
         print('payload', payload)
-        response = send_request_to_api_kit_service(uri=f'clientdb', data=payload, method='POST')
+        headers = {"Content-Type": "application/json"}
+        response = send_request_to_api_kit_service(uri=f'clientdb', data=payload, method='POST', headers=headers)
         return response.status_code == 200
 
     def delete(self, using=None, keep_parents=False):
