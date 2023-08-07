@@ -20,7 +20,7 @@ class AppObjet(BaseModelNamedEntities):
             "password": "password",
         }
         print('payload', payload)
-        #headers = {"Content-Type": "application/json; charset=utf-8"}
+        headers = {"Content-Type": "application/json; charset=utf-8"}
         response = send_request_to_api_kit_service(uri=f'clientdb', data=payload, method='POST')
         return response.status_code == 200
 
