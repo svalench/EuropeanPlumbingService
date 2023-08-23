@@ -3,8 +3,7 @@ from rest_framework import viewsets, generics, status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
-from rest_framework.authtoken.models import Token
-from accounts.models import CustomUser, Clients, UsersRoles
+from accounts.models import CustomUser, Clients, UsersRoles, CustomToken
 from accounts.serializer import UserSerializer, ClientSerializer, UserRoleSerializer, UserRoleViewsetSerializer, \
     RegisterSerializer
 from rest_framework.response import Response
@@ -41,7 +40,7 @@ class UserAuthToken(ObtainAuthToken):
         user = serializer.validated_data['user']
         user.last_login = now()
         user.save()
-        token, created = Token.objects.get_or_create(user=user)
+        token, created = CustomToken.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
             'user_id': user.pk,
@@ -57,8 +56,8 @@ class UserAuthTokenUpdate(ObtainAuthToken):
     """метод для обновления токена на сайте"""
 
     def post(self, request, *args, **kwargs):
-        t = Token.objects.get(user=request.user)
-        t.key = t.generate_key()
+        t = CustomToken.objects.get(user=request.user)
+        t.key = t.generate_key(request.user)
         t.save()
         return Response({
             'token': t.key,

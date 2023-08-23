@@ -175,3 +175,4 @@ DOMAIN = ''
 EMAIL_HOST_USER = ''
 
 API_KIT_SERVICE = os.getenv("API_KIT_SERVICE") or 'http://localhost:8000'
+SECRET_JWT = os.getenv("SECRET_JWT") or 'fghjfdgdfggdfgdg'

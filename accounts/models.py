@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+import jwt
+from rest_framework.authtoken.models import Token
+from django.conf import settings
 
 
 class BaseClassModel(models.Model):
@@ -18,6 +21,21 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class CustomToken(Token):
+
+    def generate_key(self) -> str:
+        encoded_jwt = jwt.encode({"id": self.user.pk}, settings.SECRET_JWT, algorithm="HS256")
+        return encoded_jwt
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            self.key = self.generate_key()
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        proxy = True
 
 
 class UsersPhones(BaseClassModel):
