@@ -1,3 +1,5 @@
+import json
+
 import requests
 from django.conf import settings
 from django.db import models
@@ -27,7 +29,7 @@ class AppObjet(BaseModelNamedEntities):
         response = send_request_to_api_kit_service(uri=f'clientdb/by/appid/{self.id}', method='DELETE')
         if response.status_code == 200:
             return super().delete(using=None, keep_parents=False)
-        raise ValueError('Ошибка доcтупа к сервису')
+        raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
 
 
 class TagsForApi(BaseModelNamedEntities):
@@ -39,6 +41,19 @@ class Entities(BaseModelNamedEntities):
     app = models.ForeignKey(AppObjet, on_delete=models.CASCADE)
     structure = models.JSONField('структура данных')
     table_name = models.CharField('название таблицы в БД', max_length=120)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        response = send_request_to_api_kit_service(uri=f'table/create/{self.app_id}/{self.table_name}',
+                                                   data=json.loads(self.structure), method='POST')
+        if response.status_code == 200:
+            return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
+
+    def delete(self, using=None, keep_parents=False):
+        response = send_request_to_api_kit_service(uri=f'table/create/{self.app_id}/{self.table_name}', method='DELETE')
+        if response.status_code == 200:
+            return super().delete(using=None, keep_parents=False)
+        raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
 
 
 class ApiOfApp(BaseModelNamedEntities):

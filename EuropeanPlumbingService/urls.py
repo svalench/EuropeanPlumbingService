@@ -19,6 +19,7 @@ from rest_framework import routers
 
 
 from accounts.viewset import UserViewSet, UserAuthToken, ClientsViewSet, UsersRolesViewSet, RegisterView
+from kitstructure.views import create_api
 from kitstructure.viewset import AppObjetSet, ApiOfAppViewSet
 from django.urls import re_path
 from rest_framework import permissions
@@ -51,6 +52,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('login/oauth/', UserAuthToken.as_view(), name='signin'),
     path('registration/', RegisterView.as_view(), name='registration'),
+    path('create/api/', create_api, name='create_api'),
     path('user/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
