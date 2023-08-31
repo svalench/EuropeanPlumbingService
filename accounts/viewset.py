@@ -1,12 +1,17 @@
 from django.utils.timezone import now
 from rest_framework import viewsets, generics, status
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
+
+from EuropeanPlumbingService.email_utils import EmailSending
 from accounts.models import CustomUser, Clients, UsersRoles, CustomToken
 from accounts.serializer import UserSerializer, ClientSerializer, UserRoleSerializer, UserRoleViewsetSerializer, \
-    RegisterSerializer
+    RegisterSerializer, ChangePasswordSerializer
 from rest_framework.response import Response
+
+from accounts.utils import generate_new_password
 
 
 class ClientsViewSet(viewsets.ModelViewSet):
@@ -88,33 +93,34 @@ class RegisterView(generics.CreateAPIView):
         # email.send_mail(email=data.email, subject='Регистрация на Arhiterm', template='email_template/email_change_pass.html',data=data1)
         return Response({"id": data.id, "username": data.username}, status=status.HTTP_201_CREATED, headers=headers)
 
-# class ForgotPasswordUser(viewsets.ViewSet):
-#     """метод если пользователь забыл пароль то отправляем письмо с новым"""
-#     queryset = User.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class = UserSerializer
-#
-#     def retrieve(self, request, name=None):
-#         queryset = User.objects.all()
-#         user = get_object_or_404(queryset, username=name)
-#         if user.is_superuser:
-#             raise PermissionDenied('Суперпользователю запрещено менять пароль')
-#         new_pass = generate_new_password()
-#         email = EmailSending()
-#         email.send_email_forgot_password(user=user, password=new_pass)
-#         return Response({"detail": "Проверьте почту. Там новый пароль."})
+
+class ForgotPasswordUser(viewsets.ViewSet):
+    """метод если пользователь забыл пароль то отправляем письмо с новым"""
+    queryset = CustomUser.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = UserSerializer
+
+    def retrieve(self, request, name=None):
+        queryset = CustomUser.objects.all()
+        user = get_object_or_404(queryset, username=name)
+        if user.is_superuser:
+            raise PermissionDenied('Суперпользователю запрещено менять пароль')
+        new_pass = generate_new_password()
+        email = EmailSending()
+        email.send_email_forgot_password(user=user, password=new_pass)
+        return Response({"detail": "Проверьте почту. Там новый пароль."})
 
 
-# class ChangePasswordView(generics.UpdateAPIView):
-#     """
-#     Контроллер для смены пароля пользователя
-#     """
-#     queryset = CustomUser.objects.all()
-#     permission_classes = (IsAuthenticated,)
-#     serializer_class = ChangePasswordSerializer
-#
-#     def update(self, request, *args, **kwargs):
-#         if not request.user.check_password(request.data['old_password']):
-#             raise ValidationError('старый пароль не совпал')
-#         super(ChangePasswordView, self).update(request, *args, **kwargs)
-#         return Response({"status": "OK"})
+class ChangePasswordView(generics.UpdateAPIView):
+    """
+    Контроллер для смены пароля пользователя
+    """
+    queryset = CustomUser.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer
+
+    def update(self, request, *args, **kwargs):
+        if not request.user.check_password(request.data['old_password']):
+            raise ValidationError('старый пароль не совпал')
+        super(ChangePasswordView, self).update(request, *args, **kwargs)
+        return Response({"status": "OK"})

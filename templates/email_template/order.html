@@ -1,0 +1,249 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>arhiterm.by</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>arhiterm.by</title>
+    <style type="text/css">
+        html {
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+        }
+
+        @media only screen and (min-device-width: 660px) {
+            .table660 {
+                width: 660px !important;
+            }
+        }
+
+        @media only screen and (max-device-width: 660px), only screen and (max-width: 660px) {
+            .table660 {
+                width: 100% !important;
+            }
+
+            .mob-radius-right {
+                border-radius: 0 3px 3px 0;
+            }
+
+            .mob-radius-left {
+                border-radius: 3px 0 0 3px;
+                border-left: 1px solid #ebebeb !important;
+            }
+        }
+
+        .table660 {
+            width: 660px;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+
+    <span class="preheader" style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;"></span>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
+        <tr>
+            <td align="center" bgcolor="#ffffff" style="background-color: #ffffff;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table cellpadding="0" cellspacing="0" border="0" width="660"><tr><td>
+                <![endif]-->
+                <table cellpadding="0" cellspacing="0" width="100%" border="0" class="table660" style="max-width: 660px; min-width: 320px; width: 100%;">
+                    <tr>
+                        <td align="center" valign="top">
+                            <div style="height: 45px; line-height: 45px; font-size: 43px">&nbsp;</div>
+                            <a href="" target="_blank"><img src="https://arhiterm.by/img/logo.png" height="" width="165" border="0" alt="" style="display: inline-block" /></a>
+                            <div style="height: 45px; line-height: 45px; font-size: 43px">&nbsp;</div>
+                            <div style="height: 1px; line-height: 1px; font-size: 1px; border-top-width: 1px; border-top-style: solid; border-top-color: #e6e6e6">&nbsp;</div>
+                            <table cellpadding="0" cellspacing="0" border="0" width="87.9%" align="center" style="margin: 0 auto; max-width: 87.9%; min-width: 87.9%;">
+                                <tr>
+                                    <td>
+                                        <div style="height: 50px; line-height: 50px; font-size: 48px">&nbsp;</div>
+                                        <div align="left">
+                                            <span style="font-family: Arial, sans-serif; font-size: 26px; line-height: 32px; color: #191919;">Здравствуйте! {{user_data.first_name}}
+											</span><br />
+											<span style="font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; color: #191919;">
+											Вы совершили заказ на сайте <a href="https://arhiterm.by/">arhiterm.by</a>
+											</span>
+                                            <div style="height: 20px; line-height: 20px; font-size: 18px">&nbsp;</div>
+                                            <span style="font-family: Arial, sans-serif;font-size: 16px;line-height: 30px;color: #999999;margin: 0 0 15px;float: left;width: 100%;">Заказанные позиции:<br>
+                                                
+                                        	</span>
+
+
+
+                                            <div style="line-height: 20px;font-size: 18px;float: left;width: 100%;margin-bottom: 30px;">
+
+
+
+
+{%for card in cart_prodicts%}
+<div style="float: left;width: 100%;margin: 0 0 10px;font-size: 15px;border-bottom: 1px solid #e2e2e2;">
+						<div style="float: left;width: 100px;height: 100px;display: flex;vertical-align: middle;justify-content: center;align-items: center;margin: 0 10px 10px 0;">
+							<img src="https://new.arhiterm.by{{card.card_data.img }}" style="max-width:100%;max-height:100%;">
+						</div>
+						<div style="display: grid;">
+						<div style="float: left;width: 100%;margin: 0 0 10px;font-size: 15px;">{{card.card_data.name}}</div>
+						<div style="float: left;width: 100%;margin: 0 0 5px;font-size: 13px;">
+							<strong style="font-size: 12px;font-weight: 500;">{{card.product_data.filter_show_name}}:</strong>
+							<span style="font-size: 15px;font-weight: 500;margin: 0 0 0 3px;">{{card.product_data.filter_show_value}}</span>
+						</div>
+						<div style="float: left;width: 100%;margin: 0 0 5px;font-size: 13px;">
+						<strong style="font-size: 12px;font-weight: 500;">Код товара:</strong>
+							<strong style="font-size: 15px;font-weight: 500;margin: 0 0 0 3px;"><span>{{card.product_data.name}}</span></strong>
+						</div>
+						<div style="float: left;width: 100%;margin: 0 0 5px;font-size: 13px;">
+						<strong style="font-size: 12px;font-weight: 500;">Количество:</strong>
+							<strong style="font-size: 15px;font-weight: 500;margin: 0 0 0 3px;">{{card.count}}<span> / ед.</span></strong>
+						</div>
+						<div style="float: left;width: 100%;margin: 0 0 10px;font-size: 13px;">
+						<strong style="font-size: 12px;font-weight: 500;">Стоимость:</strong>
+							<strong style="font-size: 15px;font-weight: 500;margin: 0 0 0 3px;">{{card.price}} <span>руб.</span></strong>
+						</div>
+						</div>
+					</div>
+{%endfor%}
+
+						<div style="float: left;width: 100%;margin: 30px 0 30px;font-size: 15px;text-align: right;">
+						<div class="basket-itog-start">
+							<span style="font-size: 14px;font-weight: 600;margin: 0 5px 5px;">Товаров на :</span>
+							<strong class="basket-itog-start-strong">{{for_amount}}</strong>
+							<span style="font-size: 14px;font-weight: 600;margin: 0 0px 0px;">руб.</span>
+						</div>
+						<div class="basket-itog-start">
+							<span style="font-size: 14px;font-weight: 600;margin: 0 5px 5px;">Товаров на :</span>
+							<strong class="basket-itog-start-strong">{{for_amount}}</strong>
+							<span style="font-size: 14px;font-weight: 600;margin: 0 0px 0px;">руб.</span>
+						</div>
+						<div style="float: left;width: 100%;margin: 10px 0 10px;text-align: right;">
+							<div style="float: left;width: 100%;margin: 0px 0 10px;font-size: 13px;text-align: right;">
+								<span style="font-size: 13px;font-weight: 600;margin: 0 5px 5px;">Скидка:</span>
+								<strong style="float: none;font-size: 16px;display: inline-block;">{{for_amount_discount}}</strong>
+								<span style="font-size: 13px;font-weight: 600;margin: 0 0px 0px;">руб.</span>
+								<div style="float: right;width: 40px;">
+									<strong style="float: none;font-size: 21px;display: inline-block;">{{for_amount_discount_persent}}</strong>
+									<span style="font-size: 14px;font-weight: 600;margin: 0 0px 0px;">%</span>					
+								</div>
+							</div>
+				
+							<span style="font-size: 14px;font-weight: 600;margin: 0 5px 5px;">Итого:</span>
+							<strong style="float: none;font-size: 21px;display: inline-block;">{{for_amount_itog}}</strong>
+							<span style="font-size: 14px;font-weight: 600;margin: 0 0px 0px;">руб.</span>
+						</div>
+					</div>
+
+
+            						<span style="font-size: 16px;line-height: 30px;color: #999999;margin: 0px 0 15px;float: left;width: 100%;">Данные формы заказа:</span>
+    
+
+
+
+
+				<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Тип плательщика</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{user_data.type_of_user}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Тип доставки:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{type_delevery}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Форма оплаты:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{payment}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Контактное лицо:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{user_data.first_name}} {{user_data.last_name}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Email:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{user_data.username}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Телефон:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{user_data.phone_number}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Адрес доставки:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{delevery}}</strong>
+			</div>
+			<div style="float: left;width: 100%;margin: 0 0 10px;padding: 0 0 5px;border-bottom: 1px solid #e2e2e2;">
+				<strong style="font-size: 14px;font-weight: 500;width: 190px;float: left;">Комментарии к заказу:</strong><strong style="font-size: 16px;font-weight: 600;float: left;max-width: 60%;">{{description}}</strong>
+			</div>
+
+
+
+
+
+
+										</div>
+									</div>
+
+ 										<div style="height: 35px; line-height: 35px; font-size: 33px">&nbsp;</div>
+                                          <span style="font-family: Arial, sans-serif;font-size: 15px;line-height: 22px;color: #999999;">
+
+                                            Возникли вопросы? Вы можете связаться с нами по номерам:
+
+                                            <ul style="line-height: 16px;font-size: 18px;float: left;width: 100%;margin-bottom: 20px;padding: 0;margin-top: 10px;">
+                                                <li style="list-style: none;">
+                                                    <a href="tel:+375293431616" style="margin: 0 0 10px;float: left;width: 100%;color: #333;font-weight: 700;font-size: 15px;">
+                                                        <span style="">+375 (29) 343-16-16</span>
+                                                    </a>
+                                                </li>
+                                                <li style="list-style: none;">
+                                                    <a href="tel:+375333431616" style="margin: 0 0 10px;float: left;width: 100%;color: #333;font-weight: 700;font-size: 15px;">
+                                                        <span style="">+375 (33) 343-16-16</span>
+                                                    </a> 
+                                                </li>
+                                            </ul>
+                                            <div style="float: left;width: 100%;margin-bottom: 20px;">
+                                                <span  style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Понедельник - Четверг</span>
+                                                <span style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Офис с 8:30 до 17:30</span>
+                                                <span style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Склад с 8:30 до 16:30</span>
+
+                                                <span style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Пятница</span> 
+                                                <span style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Офис с 8:30 до 17:00</span>
+                                                <span style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Склад с 8:30 до 16:00</span>
+
+                                                <span style="margin: 0 0 5px;float: left;width: 100%;color: #333;font-weight: 500;font-size: 14px;">Суббота, Воскресенье - Выходной</span>
+                                            </div>
+                                        </span>
+                                        <div style="height: 40px; line-height: 40px; font-size: 38px">&nbsp;</div>
+                                        <div style="height: 15px; line-height: 15px; font-size: 13px">&nbsp;</div>
+                                        <span style="font-family: Arial, sans-serif;font-size: 15px;line-height: 22px;color: #999999;">
+
+											Чтобы не пропустить уведомление компании Архитерм, нужно отметить это письмо флажком “Важное”.<br />
+											Это снизит вероятность попадания письма в СПАМ, а вы не потеряете возможность узнать о новых мероприятиях и не пропустите наши напоминания.
+
+                                        </span>
+                                        <div style="height: 25px; line-height: 25px; font-size: 23px">&nbsp;</div>
+                                        <div style="height: 1px; line-height: 1px; font-size: 1px; border-top-width: 2px; border-top-style: solid; border-top-color: #e6e6e6">&nbsp;</div>
+                                        <div style="height: 45px;  font-size: 43px">&nbsp;</div>
+                                        <div style=" line-height: 35px; font-size: 33px">&nbsp;</div>
+                                        <div align="center">
+                                            <span style="font-family: Arial, sans-serif; font-size: 13px; line-height: 18px; color: #999999;">Вы&nbsp;получили данное письмо, так как подписались на&nbsp;рассылку <a href="" target="_blank" style="font-family: Arial, sans-serif; font-size: 13px; line-height: 18px; color: #999999; text-decoration: none;">warm.arhiterm.by</a>.</span>
+                                            <div style="height: 5px; line-height: 5px; font-size: 3px">&nbsp;</div>
+                                            <span style="font-family: Arial, sans-serif; font-size: 13px; line-height: 18px; color: #999999;">Если вы получили это письмо по ошибке, проигнорируйте его.</span>
+                                            <div style="height: 30px; line-height: 30px; font-size: 28px">&nbsp;</div>
+                                        </div>
+                                        <div style="font-size: 43px">&nbsp;</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td></tr></table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
+{% endautoescape %}

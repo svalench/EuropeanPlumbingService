@@ -171,8 +171,16 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CSRF_TRUSTED_ORIGINS =['https://api.valenchits.com', 'http://api.valenchits.com']
 
-DOMAIN = ''
-EMAIL_HOST_USER = ''
 
 API_KIT_SERVICE = os.getenv("API_KIT_SERVICE") or 'http://localhost:8000'
 SECRET_JWT = os.getenv("SECRET_JWT") or 'fghjfdgdfggdfgdg'
+
+# ==========================EMAIL SETTINGS==========================================================/
+
+# EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.arhiterm.by'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'info@arhiterm.by'
+EMAIL_HOST_PASSWORD = 'ac2swN1Hc7Kb'
+DOMAIN = 'new.arhiterm.by'
+# ==================================================================================================

@@ -9,7 +9,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework.exceptions import ValidationError
 
-from settings import EMAIL_HOST_USER, DOMAIN
+from EuropeanPlumbingService.settings import DOMAIN, EMAIL_HOST_USER
 
 
 class EmailSending:
@@ -23,7 +23,7 @@ class EmailSending:
 
     def send_cart_email(self, user, cart):
         data = cart
-        self.send_html_email('Заказ на arhiterm', 'email_template/order.html', data, user.email)
+        self.send_html_email('Заказ', 'email_template/order.html', data, user.email)
 
     def send_email_registration(self, user):
         """отправка сообщения при авторизации"""

@@ -1,24 +1,11 @@
-"""EuropeanPlumbingService URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
 
-from accounts.viewset import UserViewSet, UserAuthToken, ClientsViewSet, UsersRolesViewSet, RegisterView
+from accounts.viewset import UserViewSet, UserAuthToken, ClientsViewSet, UsersRolesViewSet, RegisterView, \
+    ChangePasswordView, ForgotPasswordUser
 from kitstructure.views import create_api
 from kitstructure.viewset import AppObjetSet, ApiOfAppViewSet
 from django.urls import re_path
@@ -56,7 +43,10 @@ urlpatterns = [
     path('user/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-
+    path('change_password/backend/change_password/<int:pk>/', ChangePasswordView.as_view(),
+         name='auth_change_password'),
+    path('registration/backend/forgot/password/<str:name>/', ForgotPasswordUser.as_view({'get': 'retrieve'}),
+         name='forgot_password'),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
