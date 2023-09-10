@@ -31,3 +31,19 @@ def create_api(request):
     api_.entities = entiti
     api_.save()
     return Response({"message": "Got some data!", "data": request.data})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@transaction.atomic
+def create_new_row_in_api(request):
+    api_id = request.data.get('apiId', None)
+    data = request.data
+    del data['apiId']
+    try:
+        api = ApiOfApp.objects.get(pk=api_id, client__users=request.user)
+    except ApiOfApp.DoesNotExist:
+        raise serializers.ValidationError({"app": "не верная комбинация пользовать <-> приложение"})
+    res = api.save_row_to_api(data)
+    print(res)
+    return res

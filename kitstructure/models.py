@@ -63,3 +63,10 @@ class ApiOfApp(BaseModelNamedEntities):
     tags = models.ManyToManyField(TagsForApi, null=True)
     entities = models.ForeignKey(Entities, null=True, on_delete=models.CASCADE)
     prefix = models.CharField('префикс в url', max_length=50)
+
+    def save_row_to_api(self, data):
+        response = send_request_to_api_kit_service(uri=f'table/insert/{self.app_id}/{self.entities.table_name}',
+                                                   method='POST', data=data)
+        if response.status_code == 200:
+            return response.json()
+        raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
