@@ -49,14 +49,6 @@ class AppObjetSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ApiOfAppSerializer(serializers.ModelSerializer):
-    app = AppObjetSerializer()
-    tags = TagsForApiSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = ApiOfApp
-        fields = '__all__'
-
 
 class EntitiesSerializer(serializers.ModelSerializer):
     """"""
@@ -82,3 +74,13 @@ class EntitiesSerializer(serializers.ModelSerializer):
         )
         entities.save()
         return entities
+
+
+class ApiOfAppSerializer(serializers.ModelSerializer):
+    app = AppObjetSerializer()
+    tags = TagsForApiSerializer(many=True, read_only=True)
+    entities = EntitiesSerializer()
+
+    class Meta:
+        model = ApiOfApp
+        fields = '__all__'

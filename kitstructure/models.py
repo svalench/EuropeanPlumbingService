@@ -61,4 +61,5 @@ class Entities(BaseModelNamedEntities):
 class ApiOfApp(BaseModelNamedEntities):
     app = models.ForeignKey(AppObjet, on_delete=models.CASCADE)
     tags = models.ManyToManyField(TagsForApi, null=True)
+    entities = models.ForeignKey(Entities, null=True, on_delete=models.CASCADE)
     prefix = models.CharField('префикс в url', max_length=50)

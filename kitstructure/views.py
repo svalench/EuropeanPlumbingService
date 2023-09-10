@@ -28,5 +28,6 @@ def create_api(request):
     api_ = ApiOfApp(app=app, name=table_name)
     entiti = Entities(app=app, name=table_name, table_name=table_name, structure=json.dumps(entities_structure))
     entiti.save()
+    api_.entities = entiti.id
     api_.save()
     return Response({"message": "Got some data!", "data": request.data})
