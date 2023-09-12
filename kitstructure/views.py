@@ -41,7 +41,7 @@ def create_new_row_in_api(request):
     data = request.data
     del data['apiId']
     try:
-        api = ApiOfApp.objects.get(pk=api_id, client__users=request.user)
+        api = ApiOfApp.objects.get(pk=api_id, app__client__users=request.user)
     except ApiOfApp.DoesNotExist:
         raise serializers.ValidationError({"app": "не верная комбинация пользовать <-> приложение"})
     res = api.save_row_to_api(data)
