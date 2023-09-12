@@ -46,4 +46,4 @@ def create_new_row_in_api(request):
         raise serializers.ValidationError({"app": "не верная комбинация пользовать <-> приложение"})
     res = api.save_row_to_api(data)
     print(res)
-    return res
+    return Response(res)
