@@ -70,3 +70,10 @@ class ApiOfApp(BaseModelNamedEntities):
         if response.status_code == 200:
             return response.json()
         raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
+
+    def get_rows_from_api(self, limit: int = 10, offset: int = 0):
+        response = send_request_to_api_kit_service(uri=f'table/{self.app_id}/{self.entities.table_name}?limit={limit}&offset={offset}',
+                                                   method='GET')
+        if response.status_code == 200:
+            return response.json()
+        raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')

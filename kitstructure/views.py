@@ -47,3 +47,18 @@ def create_new_row_in_api(request):
     res = api.save_row_to_api(data)
     print(res)
     return Response(res)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@transaction.atomic
+def get_rows_in_api(request):
+    api_id = request.GET.get('apiId', None)
+    limit = request.GET.get('limit', 10)
+    offset = request.GET.get('offset', 0)
+    try:
+        api = ApiOfApp.objects.get(pk=api_id, app__client__users=request.user)
+    except ApiOfApp.DoesNotExist:
+        raise serializers.ValidationError({"app": "не верная комбинация пользовать <-> приложение"})
+    res = api.get_rows_from_api(limit=limit, offset=offset)
+    print(res)
+    return Response(res)
