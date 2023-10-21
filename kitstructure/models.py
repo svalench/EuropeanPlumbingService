@@ -14,15 +14,18 @@ class AppObjet(BaseModelNamedEntities):
     db_name = models.CharField(null=True, max_length=255)
     comment = models.TextField(null=True)
 
-    def generate_data_for_crete_db(self):
-        """отправляет запрос в сервис для создания ДБ и записи о ней"""
-        payload = {
+    def _generate_data_for_service(self):
+        return {
             "client_id": self.client_id,
             "api_id": self.id,
             "db_name": f'{self.db_name}_{self.id}',
             "user": "user",
             "password": "password",
         }
+
+    def generate_data_for_crete_db(self):
+        """отправляет запрос в сервис для создания ДБ и записи о ней"""
+        payload = self._generate_data_for_service()
         print('payload', payload)
         response = send_request_to_api_kit_service(uri=f'clientdb', data=payload, method='POST')
         return response.status_code == 200
@@ -33,6 +36,18 @@ class AppObjet(BaseModelNamedEntities):
             return super().delete(using=None, keep_parents=False)
         raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
 
+
+    def _do_update(self, base_qs, using, pk_val, values, update_fields, forced_update):
+        response = self.change_data()
+        if response.status_code == 200:
+            raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
+        return super()._do_update(base_qs, using, pk_val, values, update_fields, forced_update)
+
+    def change_data(self):
+        payload = self._generate_data_for_service()
+        print('payload update', payload)
+        response = send_request_to_api_kit_service(uri=f'clientdb', data=payload, method='PUT')
+        return response
 
 class TagsForApi(BaseModelNamedEntities):
     """"""

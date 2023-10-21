@@ -32,6 +32,12 @@ def create_api(request):
     api_.save()
     return Response({"message": "Got some data!", "data": request.data})
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@transaction.atomic
+def change_app(request):
+    """изменение апи"""
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -47,6 +53,9 @@ def create_new_row_in_api(request):
     res = api.save_row_to_api(data)
     print(res)
     return Response(res)
+
+
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
