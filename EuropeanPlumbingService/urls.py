@@ -7,7 +7,7 @@ from rest_framework import routers
 from accounts.viewset import UserViewSet, UserAuthToken, ClientsViewSet, UsersRolesViewSet, RegisterView, \
     ChangePasswordView, ForgotPasswordUser
 from kitstructure.views import create_api, create_new_row_in_api, get_rows_in_api
-from kitstructure.viewset import AppObjetSet, ApiOfAppViewSet
+from kitstructure.viewset import AppObjetSet, ApiOfAppViewSet, EntitiesSet
 from django.urls import re_path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -33,6 +33,7 @@ router.register(r'users-role', UsersRolesViewSet)
 router.register(r'clients', ClientsViewSet)
 router.register(r'apps', AppObjetSet)
 router.register(r'apis', ApiOfAppViewSet)
+router.register(r'entities', EntitiesSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
