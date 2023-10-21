@@ -67,7 +67,7 @@ class Entities(BaseModelNamedEntities):
         raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
 
     def delete(self, using=None, keep_parents=False):
-        response = send_request_to_api_kit_service(uri=f'table/create/{self.app_id}/{self.table_name}', method='DELETE')
+        response = send_request_to_api_kit_service(uri=f'table/delete/{self.app_id}/{self.table_name}', method='DELETE')
         if response.status_code == 200:
             return super().delete(using=None, keep_parents=False)
         raise ValueError(f'Ошибка доcтупа к сервису -> {response.text}')
